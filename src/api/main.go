@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -31,8 +32,25 @@ func MapRoutes() *gin.Engine {
 			"message": "pong",
 		})
 	})
+	Router.GET("/suma/:a/:b", handlersuma)
 	return Router
 }
+func handlersuma(c *gin.Context) {
+	a, _ := strconv.Atoi(c.Param("a"))
+
+	b, _ := strconv.Atoi(c.Param("b"))
+
+	c.JSON(200, gin.H{
+		"Resultado": a + b,
+	})
+}
+
+// func validarCamposEnteros(key string) int{
+// 	value, err:= strconv.Atoi(key)
+// 	if(err != nil){
+
+// 	}
+// }
 
 //StartServer ...
 func StartServer(engine *gin.Engine, TestingMode bool) {

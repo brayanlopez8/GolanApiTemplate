@@ -27,3 +27,10 @@ func PerformRequest(method, target, body string, engine *gin.Engine) *httptest.R
 	engine.ServeHTTP(res, req)
 	return res
 }
+
+func Test_suma(t *testing.T) {
+	route := MapRoutes()
+	res := PerformRequest("GET", "/suma/1/2", "", route)
+	assert.Equal(t, http.StatusOK, res.Code)
+	assert.Equal(t, `{"Resultado":3}`, res.Body.String())
+}
